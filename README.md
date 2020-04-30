@@ -34,7 +34,7 @@ The description style of `HTML`
 
 <hr/>
 
-案例：美化README.md的小标签的使用方法：
+案例：美化README.md的小标签的使用方法：<br/>
 0. 初步标签 <br/>
 [![ForgiveDB](https://img.shields.io/badge/ForgiveDB-HuiZ-brightgreen.svg)](https://github.com/hui-z/ForgiveDB)
 
