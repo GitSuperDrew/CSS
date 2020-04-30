@@ -19,7 +19,7 @@ The description style of `HTML`
     - 配置 `GitHub` 上已注册的用户名
     > `git config --global user.name 'GitSuperDrew'`
     - 配置 `GitHub` 上已注册的用户所匹配的邮箱地址
-    > `git config --global user.name 'your`s email address' `
+    > `git config --global user.name 'your’s email address'`
     - 拉取远程项目
     > `git clone https://github.com/GitSuperDrew/CSS.git`
     - 进入文件 `CSS` 中
