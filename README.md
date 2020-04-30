@@ -30,3 +30,16 @@ The description style of `HTML`
     1. > 使用 [`VS Code`](https://code.visualstudio.com/) 打开 `CSS` 文件夹;【注意：这里是CSS文件夹，而非自己创建的文件夹】
     2. > [`VS Code`](https://code.visualstudio.com/) 提交 very easy.【执行命令行的快捷键：Ctrl+Shift+P】
     3. > 直接可以输入 [`Git相关命令`](https://www.git-scm.com/book/zh/v2) 进行文件提交
+
+
+<hr/>
+
+案例：美化README.md的小标签的使用方法：
+0. 初步标签 <br/>
+[![ForgiveDB](https://img.shields.io/badge/ForgiveDB-HuiZ-brightgreen.svg)](https://github.com/hui-z/ForgiveDB)
+
+### 搜索引擎大 PK
+1. 百度 <br/>
+[![Baidu](https://www.baidu.com/img/baidu_resultlogo@2.png)](https://www.baidu.com/)
+2. 谷歌 <br/>
+[![Google translate](https://www.gstatic.com/images/branding/googlelogo/svg/googlelogo_clr_74x24px.svg)](https://translate.google.cn/?hl=zh-CN&tab=TT)
