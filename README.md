@@ -43,3 +43,6 @@ The description style of `HTML`
 [![Baidu](https://www.baidu.com/img/baidu_resultlogo@2.png)](https://www.baidu.com/)
 2. 谷歌 <br/>
 [![Google translate](https://www.gstatic.com/images/branding/googlelogo/svg/googlelogo_clr_74x24px.svg)](https://translate.google.cn/?hl=zh-CN&tab=TT)
+
+
+> 小彩蛋：[`百度趣画联盟`](https://logo.baidu.com) 
