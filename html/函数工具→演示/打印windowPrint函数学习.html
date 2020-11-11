@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>window.print()函数学习</title>
+	<style media="print">
+		@page {
+			size: auto;
+			margin: 0mm;
+		}
+	</style>
+</head>
+
+<body>
+	<button onclick="printDiv()">打印本页部分DOM</button>
+	<div id="printBox" style="background-color: #696969;width: 200px; height: 200px;">
+		<h2 style="color: red;">你好</h2>
+		<p>hello world!</p>
+	</div>
+	<br>
+	<button onclick="doPrintWeb()">直接打印</button>
+</body>
+<script type="text/javascript">
+	// 打印整个页面
+	function printDiv() {
+		if (getExplorer() == "IE") {
+			pagesetup_null();
+		}
+		window.print();
+	}
+
+	// 指定打印页面定义的某一个DOM元素
+	function doPrintWeb() {
+		let printRangeDom = document.getElementById('printBox');// printBox2 需要打印的DOM节点部分
+		let newContent = printRangeDom.innerHTML;
+		let oldContent = document.body.innerHTML;
+		document.body.innerHTML = newContent;
+		document.body.style.position = 'fixed';
+		document.body.style.top = '0';
+		document.body.style.left = '0';
+		document.body.style.width = '100%'
+		document.body.style.height = '100%'
+		document.body.style.zIndex = '100000'
+		document.body.style.overflow = 'auto'
+		window.print() // 核心代码
+		window.location.reload();
+		document.body.innerHTML = oldContent;
+		return false;
+	}
+
+	function pagesetup_null() {
+		var hkey_root, hkey_path, hkey_key;
+		hkey_root = "HKEY_CURRENT_USER";
+		hkey_path = "\\Software\\Microsoft\\Internet Explorer\\PageSetup\\";
+		try {
+			var RegWsh = new ActiveXObject("WScript.Shell");
+			hkey_key = "header";
+			RegWsh.RegWrite(hkey_root + hkey_path + hkey_key, "");
+			hkey_key = "footer";
+			RegWsh.RegWrite(hkey_root + hkey_path + hkey_key, "");
+		} catch (e) { }
+	}
+
+	function getExplorer() {
+		var explorer = window.navigator.userAgent;
+		//ie 
+		if (explorer.indexOf("MSIE") >= 0) {
+			return "IE";
+		}
+		//firefox 
+		else if (explorer.indexOf("Firefox") >= 0) {
+			return "Firefox";
+		}
+		//Chrome
+		else if (explorer.indexOf("Chrome") >= 0) {
+			return "Chrome";
+		}
+		//Opera
+		else if (explorer.indexOf("Opera") >= 0) {
+			return "Opera";
+		}
+		//Safari
+		else if (explorer.indexOf("Safari") >= 0) {
+			return "Safari";
+		}
+	}
+</script>
+
+</html>
