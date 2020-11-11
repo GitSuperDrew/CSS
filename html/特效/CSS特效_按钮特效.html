@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>按钮特效-纯CSS</title>
+	</head>
+	<style>
+		body {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			background: #14213D;
+			min-height: 100vh;
+		}
+
+		a {
+			position: relative;
+			padding: 10px 30px;
+			margin: 45px 0;
+			color: #B7A3E0;
+			text-decoration: none;
+			font-size: 20px;
+			transition: 0.5s;
+			/* 隐藏溢出的线条 */
+			overflow: hidden;
+			/* 倒影在文字下方，线性渐变创建遮罩图像 */
+			-webkit-box-reflect: below 1px linear-gradient(transparent, #0003);
+		}
+
+		a:hover {
+			background: #B7A3E0;
+			color: #111;
+			/* 盒子阴影 */
+			box-shadow: 0 0 50px #B7A3E0;
+			transition-delay: 0.5s;
+		}
+
+		a::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			right: 0;
+			width: 10px;
+			height: 10px;
+			border-top: 2px solid #B7A3E0;
+			border-right: 2px solid #B7A3E0;
+			transition: 0.5s;
+			transition-delay: 0.25s;
+		}
+
+		a:hover::before {
+			width: 100%;
+			height: 100%;
+			transition-delay: 0s;
+		}
+
+		a::after {
+			content: '';
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 10px;
+			height: 10px;
+			border-bottom: 2px solid #B7A3E0;
+			border-left: 2px solid #B7A3E0;
+			transition: 0.5s;
+			transition-delay: 0.25s;
+		}
+
+		a:hover::after {
+			width: 100%;
+			height: 100%;
+			transition-delay: 0s;
+		}
+
+		a:nth-child(1) {
+			/* css滤镜 */
+			filter: hue-rotate(100deg);
+		}
+
+		a:nth-child(3) {
+			filter: hue-rotate(200deg);
+		}
+	</style>
+	<body>
+		<a href="#">按钮</a>
+		<a href="#">按钮</a>
+		<a href="#">按钮</a>
+	</body>
+</html>

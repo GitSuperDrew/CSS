@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>跑马灯按钮特效_纯CSS</title>
+	</head>
+	<style>
+		body {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			background: #14213D;
+			min-height: 100vh;
+		}
+
+		a {
+			position: relative;
+			display: inline-block;
+			padding: 10px 30px;
+			margin: 45px 0;
+			color: #6ECF81;
+			text-decoration: none;
+			font-size: 20px;
+			text-transform: uppercase;
+			transition: 0.5s;
+			overflow: hidden;
+			letter-spacing: 4px;
+			-webkit-box-reflect: below 1px linear-gradient(transparent, #0003);
+		}
+
+		a span {
+			position: absolute;
+			display: block;
+		}
+
+		a:hover {
+			background: #6ECF81;
+			color: #111;
+			transition-delay: 0.1s;
+			box-shadow: 0 0 5px #6ECF81,
+				0 0 25px #6ECF81,
+				0 0 50px #6ECF81,
+				0 0 100px #6ECF81
+		}
+
+		a span:nth-child(1) {
+			top: 0;
+			left: -100%;
+			width: 100%;
+			height: 2px;
+			background: linear-gradient(90deg, transparent, #6ECF81);
+			animation: animate1 0.5s linear infinite;
+		}
+
+		@keyframes animate1 {
+			0% {
+				left: -100%;
+			}
+
+			50%,
+			100% {
+				left: 100%;
+			}
+		}
+
+		a span:nth-child(2) {
+			top: 0;
+			right: 0;
+			width: 2px;
+			height: 100%;
+			background: linear-gradient(180deg, transparent, #6ECF81);
+			animation: animate2 0.5s linear infinite;
+			animation-delay: 0.125s;
+		}
+
+		@keyframes animate2 {
+			0% {
+				top: -100%;
+			}
+
+			50%,
+			100% {
+				top: 100%;
+			}
+		}
+
+		a span:nth-child(3) {
+			bottom: 0;
+			right: 0;
+			width: 100%;
+			height: 2px;
+			background: linear-gradient(270deg, transparent, #6ECF81);
+			animation: animate3 0.5s linear infinite;
+			animation-delay: 0.25s;
+		}
+
+		@keyframes animate3 {
+			0% {
+				right: -100%;
+			}
+
+			50%,
+			100% {
+				right: 100%;
+			}
+		}
+
+		a span:nth-child(4) {
+			bottom: -100%;
+			left: 0;
+			width: 2px;
+			height: 100%;
+			background: linear-gradient(360deg, transparent, #6ECF81);
+			animation: animate4 0.5s linear infinite;
+			animation-delay: 0.375s;
+		}
+
+		@keyframes animate4 {
+			0% {
+				bottom: -100%;
+			}
+
+			50%,
+			100% {
+				bottom: 100%;
+			}
+		}
+
+		a:nth-child(1) {
+			filter: hue-rotate(120deg);
+		}
+
+		a:nth-child(3) {
+			filter: hue-rotate(270deg);
+		}
+	</style>
+	<body>
+		<a href="#">
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			SHINE </a>
+		<a href="#">
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			SHINE </a>
+		<a href="#">
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			SHINE </a>
+	</body>
+</html>

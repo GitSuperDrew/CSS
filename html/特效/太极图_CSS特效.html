@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>太极旋转CSS演示图</title>
+		<style>
+			/*基本样式格式化*/
+			*{
+				margin:0;
+				padding: 0;
+			}
+			body{ 
+				background-color: dimgray;
+			}
+			/*太极图主题样式：设置相同的宽高，并通过border-radius:50%转为圆形,
+			 * position设为relative相对定位,给一个1像素的灰色边框，最后通过animatin引入后面的动画*/
+			.taiji{
+				margin: 100px auto;
+				position: relative;
+				width: 300px;
+				height: 300px;
+				border-radius:50% ;
+				border: solid 1px #ccc;
+				animation: spin 6s linear infinite;
+			}
+			/*黑色部分设置：黑白两部分的宽均为父元素的50%,高度为父元素的100%,通过absplute定位在一左一右，
+			 * 然后通过border-radius去掉左右两侧多余的部分对于太极主体圆形完全重合。*/
+			.tj{
+				width: 50%;
+				height: 100%;
+				position: absolute;
+				top: 0;
+			}
+			.white{
+				background-color: white;
+				left: 0;
+				border-radius: 100% 0 0 100% /50% 0 0 50%;
+			}
+			.black{
+				background-color: black;
+				right: 0;
+				border-radius: 0 100% 100% 0 / 0 50% 50% 0;
+			}
+			/*圆弧部分设置：主要原理就是一个黑色和一个白色的圆形进行覆盖从而形成圆弧，这里注意的是尺寸和定位就行了。*/
+			.round{
+				width: 50%;
+				height: 50%;
+				border-radius: 50%;
+				position: absolute;
+			}
+			.r-w{
+				background-color:white ;
+				top: 0;
+				left: 25%;
+			}
+			.r-b{
+				background-color: black;
+				bottom: 0;
+				/*right: 25%;都是一个道理*/
+				left:25%;
+			}
+			/* 黑色圆点设置：同上面的操作方法基本类似，通过border-radius设置两个圆形，
+			 * 调整尺寸和背景颜色并通过定位放到何时的位置即可. */
+			.small{
+				width: 25%;
+				height: 25%;
+				border-radius:50% ;
+				position: absolute;
+				left: 37.5%;
+			}
+			.s-b{
+				background-color: black;
+				top: 37.5%;
+			}
+			.s-w{
+				background-color: white;
+				/*bottom: 37.5%;都是一个意思*/
+				margin-top: 37.5%;
+			}
+			/*添加动画：通过@keyframes设置动画，主体部分延着z轴旋转360度,步骤2中以引用此处.*/
+			@keyframes spin{
+				0%{transform: rotateZ(0deg);}
+				100%{transform: rotateZ(360deg);}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="taiji">							<!--太极主体-->
+			<div class="tj white"></div>			<!--白色部分-->
+			<div class="tj black"></div>			<!--黑色部分-->
+			<div class="round r-w">					<!--白色部分的圆弧-->
+				<div class="small s-b"></div>		<!--白色部分里面的黑色原点-->
+			</div>
+			<div class="round r-b">					<!--黑色部分的圆弧-->
+				<div class="small s-w"></div>		<!--黑色部分里面的白色原点-->
+			</div>
+		</div>
+	</body>
+</html>

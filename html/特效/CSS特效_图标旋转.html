@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>图标旋转</title>
+	</head>
+	<style>
+		body {
+			min-height: 100vh;
+			margin: 0;
+			padding: 0;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			background: slategray;
+		}
+
+		/* 图标基本样式 */
+		a {
+			display: block;
+			text-align: center;
+			text-decoration: none;
+			margin: 0 50px;
+			padding: 0 20px;
+			color: seashell;
+		}
+
+		.container {
+			width: 60px;
+			height: 60px;
+			position: relative;
+			transition: all .3s;
+		}
+
+		/* 移入旋转  skew 扭曲 斜切变换*/
+		a:hover .container {
+			transform: rotate(-35deg) skew(10deg);
+		}
+
+		.iconfont {
+			font-size: 50px;
+			line-height: 60px;
+			text-align: center;
+		}
+
+		i {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			border: 1px solid #fff;
+			transition: .3s;
+		}
+
+		/* 每个i标签代表一个边框，加上不同的颜色和重影 */
+		a:hover i:nth-child(1) {
+			opacity: 0.2;
+		}
+
+		a:hover i:nth-child(2) {
+			opacity: 0.4;
+			transform: translate(5px, -5px);
+		}
+
+		a:hover i:nth-child(3) {
+			opacity: 0.6;
+			transform: translate(10px, -10px);
+		}
+
+		a:hover i:nth-child(4) {
+			opacity: 0.8;
+			transform: translate(15px, -15px);
+		}
+
+		a:hover i:nth-child(5) {
+			opacity: 1;
+			transform: translate(20px, -20px);
+		}
+
+		.items:nth-child(1) .container i,
+		.items:nth-child(1) a p {
+			border-color: pink;
+			color: pink;
+		}
+
+		.items:nth-child(2) .container i,
+		.items:nth-child(2) a p {
+			border-color: yellowgreen;
+			color: yellowgreen;
+		}
+
+		.items:nth-child(3) .container i,
+		.items:nth-child(3) a p {
+			border-color: sandybrown;
+			color: sandybrown;
+		}
+
+		.items:nth-child(1) a:hover i {
+			box-shadow: -1px 1px 3px pink;
+		}
+
+		.items:nth-child(2) a:hover i {
+			box-shadow: -1px 1px 3px yellowgreen;
+		}
+
+		.items:nth-child(3) a:hover i {
+			box-shadow: -1px 1px 3px sandybrown;
+		}
+
+		p {
+			transform: translateY(-30px);
+			opacity: 0;
+			transition: .3s;
+			font-weight: 700;
+		}
+
+		a:hover p {
+			transform: translateY(0px);
+			opacity: 1;
+		}
+	</style>
+	<body>
+		<div class="items">
+			<a href="#">
+				<div class=" container">
+					<i></i>
+					<i></i>
+					<i></i>
+					<i></i>
+					<i class="iconfont icon-qq"><img src="../../common-images/qq.png" class="container"></i>
+				</div>
+				<p>QQ</p>
+			</a>
+		</div>
+		<div class="items">
+			<a href="#">
+				<div class=" container">
+					<i></i>
+					<i></i>
+					<i></i>
+					<i></i>
+					<i class="iconfont icon-weixin"><img src="../../common-images/wechat.png" class="container"></i>
+				</div>
+				<p>WeChat</p>
+			</a>
+		</div>
+		<div class="items">
+			<a href="#">
+				<div class=" container">
+					<i></i>
+					<i></i>
+					<i></i>
+					<i></i>
+					<i class="iconfont icon-tubiaozhizuo-"><img src="../../common-images/weibo.png" class="container"></i>
+				</div>
+				<p>WeiBo</p>
+			</a>
+		</div>
+	</body>
+</html>
