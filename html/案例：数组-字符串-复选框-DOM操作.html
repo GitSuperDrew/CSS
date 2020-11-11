@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>案例：数组-字符串转化</title>
+    <!-- 引入本地环境的Jquery文件 -->
+    <!-- <script src="/js/plugins/jquery/jquery-3.4.1.min.js"></script> -->
+    <!-- CDN:引用外部的在线的Jquery文件 -->
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+</head>
+
+<body>
+    <h3>数组👈👉</h3>
+    <button id="arrToStr">显示：将数组拼接成字符串</button>
+    <button>显示：将数组拼接成字符串</button>
+
+    <hr>
+    <h3>复选框：得到被选中的所有值</h3>
+    <input type="checkbox" name="box" id="" value="pingpang" checked="checked">乒乓球
+    <input type="checkbox" name="box" id="" value="football">足球
+    <input type="checkbox" name="box" id="" value="basketball">篮球
+    <input type="checkbox" name="box" id="" value="tennis">网球
+    <br>
+    <button id="showChecked">显示复选框中被选择的value值</button>
+
+    <hr>
+    <h3>操作DOM文档结构</h3>
+    <div id="container">
+        <span id="span1">这是第一个</span>
+        <br>
+        <button id="addParam">点击添加元素</button> 
+    </div>
+
+    <button id="showCurTime"> 得到当前时间戳 </button>
+    <hr>
+    <strong class="username">钟玲</strong> <button id="getUsername">点击获取左边文本的内容</button>
+
+    <hr>
+    隐藏的输入框：<input type="hidden" name="customerId" id="customerId"><button id="showCustomerId">查看隐藏输入框的value值</button>
+
+    <hr>
+    <h4>JS判断字符串中是否包含目标子字符串</h4>
+    <span id="textDemo" style="display: inline;">alarm#wechatab</span>
+    <button id="getRegex">点击显示匹配到的数目</button>
+    <button>xianshi</button>
+
+    <hr>
+    <label for="acceptRadio"><input type="radio" name="ifAcceptRadio" id="acceptRadio" value="accept"> 同意</label>
+    <label for="noAcceptRadio"><input type="radio" name="ifAcceptRadio" id="noAcceptRadio" value="noAccept"> 不同意</label>
+    <button onclick="getRadioValue()">显示被选中的单选项</button>
+
+
+    <script>
+        $(function () {
+            // 页面加载时执行
+        });
+
+        /**
+         *  单选框Radio
+         *  参数：radioName 单选框组name
+         *  返回：被选中的单选框的value值
+         */
+        function getRadioValue(radioName) {
+            let resultValue = "";
+            // 第一种方法：
+            // let radios = $("input[name='ifAcceptRadio']");
+            // for (i in radios) {
+            //     if (radios[i].checked) {
+            //         resultValue = radios[i].value;
+            //     }
+            // }
+            // 第二种方法：
+            resultValue = $("input[name='ifAcceptRadio']:checked").val();
+            alert(resultValue)
+            return resultValue;
+        }
+
+        $("#getRegex").click(function () {
+            let content = $("#textDemo").text(), reg = RegExp(/ab/);
+            if (content.match(reg)) {
+                alert(content);
+            } else {
+                console.log(content);
+            }
+
+            $("#textDemo").style.display = "none"
+        })
+
+        $("#showCustomerId").click(function () {
+            $("#customerId").val("220");
+            alert($("#customerId").val());
+        })
+
+        $("#getUsername").click(function () {
+            alert($(".username").text());
+        })
+
+        $("#showCurTime").click(function () {
+            let curDateTime = new Date();
+            alert("当前时间为:" + curDateTime + "\n当前时间戳：" + curDateTime.getTime());
+        })
+
+        $("#addParam").click(function () {
+            $("#span1").after("<span id='spanDemo' style='color:red'>span11</span>")
+        })
+        $("#removeParam").click(function () {
+            var nu = $("#spannDemo");
+            $("#spanDemo").remove();
+        })
+
+        $("#showChecked").click(function () {
+            // 第一种写法JavaScript
+            // alert(getCheckedOfCheckbox_JS("box"));
+            // 另外一种写法：arr2.join('#', arr2);// 其实这是被JS忽略掉了多余的参数而已，O(∩_∩)O
+            // alert(getCheckedOfCheckbox_JQuery("box"));
+            // jquery升级版本
+            alert("jqueryPlus升级版本：" + getCheckedOfCheckbox_JQueryPlus("box"));
+
+        });
+
+        /**
+         * 得到复选框中被选中的值（基于JavaScript的写法）
+         * 参数：checkboxIdOfName 为一组复选框中的name值（一组中的复选框的name值一般都是属于一样的）
+         * 返回：复选框中以“-”拼接的value集合字符串
+        */
+        function getCheckedOfCheckbox_JS(checkboxIdOfName) {
+            let arr = [], checkedStr = "";
+            let obj = document.getElementsByName("box");
+            for (i in obj) {
+                if (obj[i].checked) {
+                    arr.push(obj[i].value);
+                }
+            }
+            // checkedStr = arr.join('-', arr);
+            checkedStr = arr.join('-');
+            return checkedStr;
+        }
+
+        /**
+         * 得到复选框中被选中的值（基于JQuery的写法）
+         * 参数: checkboxIdOfName 为一组复选框中的name值（一组中的复选框的name值一般都是属于一样的）
+         * 返回：复选框中以“#”拼接的value集合字符串
+         */
+        function getCheckedOfCheckbox_JQuery(checkboxIdOfName) {
+            let arr2 = [], checkedStr2 = "";
+            let obj2 = $("input[name='" + checkboxIdOfName + "']");
+            for (k in obj2) {
+                if (obj2[k].checked) {
+                    arr2.push(obj2[k].value);
+                }
+            }
+            checkedStr2 = arr2.join('#');// 这是返回一个字符串
+            return checkedStr2;
+        }
+
+        /**
+         * 得到复选框中被选中的值（基于JQuery的写法）升级版本
+         * 参数: checkboxIdOfName 为一组复选框中的name值（一组中的复选框的name值一般都是属于一样的）
+         * 返回：复选框中以“#”拼接的value集合字符串
+         */
+        function getCheckedOfCheckbox_JQueryPlus(checkboxIdOfName) {
+            let arr = [];
+            $("input[name='" + checkboxIdOfName + "']:checked").each(function(){
+                arr.push($(this).val());
+            });
+            return arr.join('#');
+        }
+
+        $("#arrToStr").click(function () {
+            let arr = [1, 2, 3, 4];
+            let arrStr = "";
+            arrStr = arr.join('-');
+            alert(arrStr);
+        });
+    </script>
+</body>
+
+</html>

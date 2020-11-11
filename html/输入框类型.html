@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>动态修改form</title>
+</head>
+<body>
+    <!-- 使用 -->
+    <form id="formId" method="post">
+        姓名：<input type="text" name="name" id="name"><br>
+        密码：<input type="password" name="password" id="password" maxlength="11" minlength="4"><br>
+        邮箱：<input type="email" name="email" id="email" maxlength="10"><br>
+        电话：<input type="number" name="phoneName" id="phoneName" maxlength="7"><br>
+        手机：<input type="number" name="telphoneName" id="telphoneId" maxlength="11"><br>
+        颜色选择器：<input type="color" name="colorName" id="colorId"><span>type=color</span><br>
+        日期选择器：<input type="date" name="dateSelectName" id="dateSelectId" value="2019-10-10"><span>type=date：时间格式为：YYYY-MM-DD</span><br>
+        时间选择器：<input type="time" name="timeName" id="timeId" value="15:30"><span>type=time：24小时制</span><br>
+        本地时间选择器：<input type="datetime-local" name="datetimeLocalName" id="datetimeLocalId"><strong>type=datetime-local</strong><br>
+        文件选择器：<input type="file" name="fileName" id="fileId" multiple="none"><br>
+        图片输入框：<input type="image" src="" alt="图片选择"><br>
+        范围选择器：<input type="range" name="rangeInput" id="rangeId" value="dagd" max="10" min="0" maxlength="100">
+        <small>value值默认为数值Number类型的数字，如果默认的value小于最小值，则视为value为固定的默认值；反之，大于最大值则value为固定的最大值；如果value不是Number类型的数值，则四舍五入去中间值</small>
+        <br>
+        <button type="reset">重置</button>
+        <button type="submit" onclick="add()">新增</button>
+        <button type="submit" onclick="update()">更新</button>
+    </form>
+    <button onclick="showColor()">显示所选择的颜色</button>
+    <button onclick="showRangeValue()">显示当前为数值</button>
+
+
+    <hr>
+    <strong id="strongDiv">
+
+    </strong>
+    <script>
+        window.onload = function(){
+            let student = {
+                name: "Drew",
+                age: 23
+            }
+            let studentJSON = JSON.stringify(student);
+            console.log(studentJSON);
+            let reverseStudentDiv = JSON.parse(studentJSON);
+            console.log(reverseStudentDiv.name);
+        }
+
+        function showColor(){
+            let colorValue = document.getElementById("colorId");
+            // alert(colorValue.value);
+            console.log(colorValue.value);
+        }
+        function add(){
+            $("#formId").attr(action,"http://localhost:8080?saveOrUpdate='save'");
+            alert($("#formId").attr(action));
+        }
+        function update(){
+            $("#formId").attr(action,"http://localhost:8080?saveOrUpdate='update'");
+            alert($("#formId").attr(action));
+        }
+        function showRangeValue(){
+            var rangeValue = document.getElementById("rangeId");
+            // alert("显示范围先择器的当前的值：" + rangeValue.value);
+            console.log(rangeValue.value);
+        }
+        function returnHe(a, b){
+            return a + b;
+        }
+    </script>
+</body>
+</html>
