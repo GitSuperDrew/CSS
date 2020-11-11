@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试 utils 包下的工具类</title>
+    <script src="../utils/js/jutil.js"></script>
+    <!-- <script src="../utils/js/jquery-3.4.1.min.js"></script> -->
+    <script src="../utils/js/demo.js"></script>
+    <script src="../utils/js/NormalUtil.js"></script>
+</head>
+
+<body>
+
+    <script>
+        // $(function () { // 工具类下的 jQuery插件引入
+        //     console.log("hello world! hello cript.")
+        //     console.log('    hello jutil.trim()   '.trim())
+        //     console.log(checkNumber(12133))
+        //     showUuid();
+        // })
+
+        function showUuid() {
+            console.log("随机数的UUID：", Jutil.createUuid())
+        }
+
+        showUuid();
+
+    </script>
+</body>
+
+</html>
