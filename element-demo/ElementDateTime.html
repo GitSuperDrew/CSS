@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ElementDateTime</title>
+    <!-- import Vue before Element -->
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <template>
+            <div class="block">
+                <span class="demonstration">起始日期时刻为 12:00:00</span>
+                <el-date-picker v-model="value1" type="datetimerange" start-placeholder="开始日期" end-placeholder="结束日期"
+                    :default-time="['12:00:00']">
+                </el-date-picker>
+            </div>
+            <div class="block">
+                <span class="demonstration">起始日期时刻为 12:00:00，结束日期时刻为 08:00:00</span>
+                <el-date-picker v-model="value2" type="datetimerange" align="right" start-placeholder="开始日期"
+                    end-placeholder="结束日期" :default-time="['12:00:00', '08:00:00']">
+                </el-date-picker>
+            </div>
+        </template>
+    </div>
+</body>
+
+<script>
+    // var app = new Vue({
+    //     el: '#app',
+    //     data: {
+    //         message: "welcome to vue element-ui."
+    //     },
+    //     methods: {
+    //         showHiddenInfo: function () {
+    //             alert("good world!");
+    //         }
+    //     }
+    // });
+    var Main = {
+        data() {
+            return {
+                value1: '',
+                value2: ''
+            };
+        }
+    };
+    var Ctor = Vue.extend(Main)
+    new Ctor().$mount('#app')
+</script>
+
+</html>
