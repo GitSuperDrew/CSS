@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>jstree basic demos</title>
+	<style>
+		html {
+			margin: 0;
+			padding: 0;
+			font-size: 62.5%;
+		}
+
+		body {
+			max-width: 800px;
+			min-width: 300px;
+			margin: 0 auto;
+			padding: 20px 10px;
+			font-size: 14px;
+			font-size: 1.4em;
+		}
+
+		h1 {
+			font-size: 1.8em;
+		}
+
+		.demo {
+			overflow: auto;
+			border: 1px solid silver;
+			min-height: 100px;
+		}
+	</style>
+	<link rel="stylesheet" href="./../../dist/themes/default/style.min.css" />
+
+	<!--jQuery-UI-Icon 图库 https://api.jqueryui.com/resources/icons-list.html -->
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+</head>
+
+<body>
+	<i class="ui-icon ui-icon-triangle-1-e"></i> 钥匙图标🔑
+	<h1>HTML demo</h1>
+	<div id="html" class="demo">
+		<ul>
+			<li data-jstree='{ "opened" : true }'>Root node
+				<ul>
+					<li data-jstree='{ "selected" : true }'>Child node 1</li>
+					<li>Child node 2</li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+
+	<h1>Inline data demo</h1>
+	<div id="data" class="demo"></div>
+
+	<h1>Data format demo</h1>
+	<div id="frmt" class="demo"></div>
+
+	<h1>AJAX demo</h1>
+	<div id="ajax" class="demo"></div>
+
+	<h1>Lazy loading demo</h1>
+	<div id="lazy" class="demo"></div>
+
+	<h1>Callback function data demo</h1>
+	<div id="clbk" class="demo"></div>
+
+	<h1>Interaction and events demo</h1>
+	<button id="evts_button">select node with id 1</button> <em>either click the button or a node in the tree</em>
+	<div id="evts" class="demo"></div>
+
+	<h2>MultiSelected 多选</h2>
+	你选择的节点有：<span id="event_result"></span>
+	<div id="MultiSelectDiv" class="demo"></div>
+	
+
+	<hr>
+	<center>===下面是插件演示===</center>
+	<a href="https://www.jstree.com/plugins/">官方插件学习地址</a>
+	<h1>Search Plugin Demo（搜索插件）</h1>
+	节点名称：<input type="text" id="searchInput" placeholder="请输入节点名称">
+	<div id="searchDiv" class="demo"></div>
+
+	<h2>Sort Plugin Demo（搜索插件）</h2>
+	<div id="sortDiv" class="demo"></div>
+
+	<h2>Status Plugin Demo（折叠/展开）</h2>
+	<div id="statusDiv" class="demo"></div>
+
+	<h2>Types & Wholerow Plugin Demo（不同节点类型分类处理）</h2>
+	<p>插件 wholerow 去掉连接虚线</p>
+	<div id="typesIconDiv" class="demo"></div>
+
+	<h2>Unique Plugin Demo （去重插件）</h2>
+	<div id="uniqueDiv" class="demo"></div>
+
+	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.1/jquery.min.js"></script>
+	<script src="./../../dist/jstree.min.js"></script>
+
+	<script>
+
+		// html demo
+		$('#html').jstree();
+
+		// inline data demo
+		$('#data').jstree({
+			'core': {
+				'data': [
+					{
+						"text": "Root node", "children": [
+							{ "text": "Child node 1" },
+							{
+								"text": "Child node 2", "children": [
+									{ "text": "Child node 3", "icon": "http://jstree.com/tree-icon.png" },
+									{ "text": "Child node 4" },
+								]
+							}
+						]
+					}
+				],
+
+			},
+			"checkbox": {
+				"keep_selected_style": false
+			},
+			"plugins": ["checkbox"]
+		});
+
+		// data format demo
+		$('#frmt').jstree({
+			'core': {
+				'data': [
+					{
+						"text": "Root node",
+						"state": { "opened": true }, // 将树图展开
+						"children": [
+							{
+								"text": "Child node 1",
+								"state": { "selected": true },
+								"icon": "jstree-file"
+							},
+							{ "text": "Child node 2", "state": { "disabled": true } }
+						]
+					}
+				]
+			}
+		});
+
+		// ajax demo
+		$('#ajax').jstree({
+			'core': {
+				'data': {
+					"url": "./root.json",
+					"dataType": "json" // needed only if you do not supply JSON headers
+				}
+			}
+		});
+
+		// lazy demo
+		$('#lazy').jstree({
+			'core': {
+				'data': {
+					"url": "//www.jstree.com/fiddle/?lazy",
+					"data": function (node) {
+						return { "id": node.id };
+					}
+				}
+			}
+		});
+
+		// data from callback
+		$('#clbk').jstree({
+			'core': {
+				'data': function (node, cb) {
+					// 看看node 的相关属性
+					// console.log("node节点的相关属性: ", node)
+					// node.icon = "http://jstree.com/tree-icon.png" // 设置node节点的图标
+					if (node.id === "#") {
+						cb([{ "text": "Root", "id": "1", "children": true }]);
+					}
+					else {
+						cb(["Child"]);
+					}
+				}
+			}
+		});
+
+		// interaction and events
+		$('#evts_button').on("click", function () {
+			var instance = $('#evts').jstree(true);
+			instance.deselect_all();
+			instance.select_node('1');
+		});
+		$('#evts').on("changed.jstree", function (e, data) {
+			if (data.selected.length) {
+				alert('The selected node is: ' + data.instance.get_node(data.selected[0]).text);
+			}
+			// 点击之后替换图标
+			data.instance.set_icon(data.node, 'http://jstree.com/tree-icon.png');
+		}).jstree({
+			'core': {
+				'multiple': false, // 禁用多选属性
+				'data': [
+					{
+						"text": "Root node", "children": [
+							{ "text": "Child node 1", "id": 1 },
+							{ "text": "Child node 2" }
+						]
+					}
+				]
+			}
+		});
+
+
+
+
+
+		// MultiSelected Demo
+		$('#MultiSelectDiv')
+			// listen for event
+			.on('changed.jstree', function (e, data) {
+				var i, j, r = [];
+				for (i = 0, j = data.selected.length; i < j; i++) {
+					r.push(data.instance.get_node(data.selected[i]).text);
+				}
+				$('#event_result').html('Selected: ' + r.join(', '));
+			})
+			// create the instance
+			.jstree({
+				'core': {
+					// 'multiple': false, // 禁用多选
+					'data': [
+						{
+							"text": "Root node", "children": [
+								{ "text": "Child node 1", "id": 1 },
+								{ "text": "Child node 2" }
+							]
+						}
+					]
+				}
+			});
+
+
+
+
+
+		// Search Demo
+		$("#searchDiv").jstree({
+			'core': {
+				'data': [
+					{
+						"text": "Root node", "children": [
+							{ "text": "Child node 1", 'id': '1' },
+							{
+								"text": "Child node 2", "children": [
+									{ "text": "Child node 3", "icon": "http://jstree.com/tree-icon.png" },
+									{ "text": "Child node 4" },
+								]
+							}
+						]
+					}
+				],
+
+			},
+			"plugins": ["search"]
+		});
+		var to = false;
+		$('#searchInput').keyup(function () {
+			if (to) { clearTimeout(to); }
+			to = setTimeout(function () {
+				var v = $('#searchInput').val();
+				$('#searchDiv').jstree(true).search(v);
+			}, 250);
+		});
+
+
+
+
+
+		// Sort Plugin
+		$("#sortDiv").jstree({
+			'core': {
+				'data': [
+					{
+						"text": "Root node", "children": [
+							{ "text": "Child node 6" },
+							{
+								"text": "Child node 2", "children": [
+									{ "text": "Child node 23", "icon": "http://jstree.com/tree-icon.png" },
+									{ "text": "Child node 10" },
+								]
+							}
+						]
+					}
+				],
+
+			},
+			"plugins": ["sort"]
+		});
+
+
+
+
+		// Status Plugin （折叠/展开）状态【注意：插件名为 status, 属性名为 state 】
+		$("#statusDiv").jstree({
+			'core': {
+				"animation": 0,
+				"check_callback": true,
+				"themes": { "stripes": true },
+				// 上面三个属性配置不重要，重要的是下面的。
+				'data': [
+					{
+						"text": "Root node",
+						"state": { "opened": true },
+						"children": [
+							{
+								"text": "Child node 1",
+								"state": { "opened": true }
+							},
+							{
+								"text": "Child node 2",
+								"state": { "selected": true, "opened": true },
+								"children": [
+									{ "text": "Child node 3", "state": { "opend": true, "disabled": true } },
+									{ "text": "Child node 4", "state": { "opend": true, "selected": true } },
+								]
+							}
+						]
+					}
+				],
+			},
+			'plugins': ['status', "wholerow"]// 插件 wholerow 去掉连接虚线
+		});
+
+
+		// Types Plugin (图标修改插件) / Wholerow
+		$("#typesIconDiv").jstree({
+			'core': {
+				'data': [
+					{
+						"text": "Root node", 'type': "root", "children": [
+							{ "text": "Child node 1" },
+							{
+								"text": "Child node 2", "children": [
+									{ "text": "Child node 3", "icon": "http://jstree.com/tree-icon.png" },
+									{ "text": "Child node 4" },
+								]
+							}
+						]
+					}
+				],
+
+			},
+			"types": {
+				"root": {
+					"icon": "jstree-file"
+				},
+				"default": {
+					// "icon": "./img/a1.ico"
+					// "icon": "glyphicon glyphicon-flash"
+					"icon": "jstree-folder"
+				},
+				"demo": {
+					// "icon": "glyphicon glyphicon-ok"
+					"icon": "http://jstree.com/tree-icon.png"
+				}
+			},
+			"plugins": ["types", "wholerow"] // 添加了插件 “wholerow” 则去掉了 连接的虚线
+		});
+
+
+		// Unique Plugin && Drag Plugin
+		// 如果有两个id 相同，则使用最后一个作为公共的节点名字
+		$("#uniqueDiv").jstree({
+			"core": {
+				'data': [
+					{
+						"text": "Root node", "children": [
+							{ "text": "Child node 1" },
+							{
+								"text": "Child node 2", "children": [
+									{ "text": "Child node 399999", "id": 2, "icon": "http://jstree.com/tree-icon.png" },
+									{ "text": "Child node 42", "id": 2 },
+								]
+							}
+						]
+					}
+				],
+				"check_callback": true
+			},
+			"plugins": ["unique", "dnd"] // 插件 dnd 使得每个节点可以直接拖拉到另一个节点下
+		});
+		$("#uniqueDiv").jstree().open_all();
+	</script>
+</body>
+
+</html>

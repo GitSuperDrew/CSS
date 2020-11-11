@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 23.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="图层_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 3840 2160" style="enable-background:new 0 0 3840 2160;" xml:space="preserve">
+<style type="text/css">
+	.st0{clip-path:url(#SVGID_2_);}
+	.st1{fill:none;}
+	.st2{fill:#3A2221;}
+	.st3{fill:#563A3A;}
+	.st4{clip-path:url(#SVGID_4_);fill:#FFFFFF;}
+	.st5{fill:#897D7D;}
+	.st6{clip-path:url(#SVGID_6_);fill:#DEE3F0;}
+</style>
+<g>
+	<g>
+		<defs>
+			<rect id="SVGID_1_" x="1457.1" y="617.1" width="918.7" height="828.8"/>
+		</defs>
+		<clipPath id="SVGID_2_">
+			<use xlink:href="#SVGID_1_"  style="overflow:visible;"/>
+		</clipPath>
+		<path class="st0" d="M1894,1016.5"/>
+	</g>
+</g>
+<rect x="1457.1" y="617.1" class="st1" width="918.7" height="828.8"/>
+<path class="st2" d="M2273.3,779.9l-687.3-0.5c-33.7,0-63.2,18.1-79.1,45.2c3.8,4.9,37,54.7,91.5,54.7h698.2
+	c20.3,0,36.7,16.5,36.7,36.7v-76.1C2333.3,806.8,2306.4,779.9,2273.3,779.9z"/>
+<path class="st3" d="M1506.6,916.9v384.6c0,60.9,49.4,110.2,110.2,110.2h679.8c20.3,0,36.7-16.5,36.7-36.7V963.3l-747.3-0.5
+	C1552.2,962.7,1522.5,944.3,1506.6,916.9z"/>
+<path class="st3" d="M2296.6,879.3h-698.2c-54.5,0-87.8-49.8-91.5-54.7c-0.1,0.3,0,0.2-0.1,0.4l-0.3,92.3
+	c15.9,27.4,45.5,45.8,79.5,45.8l747.3,0.5V916C2333.3,895.8,2316.8,879.3,2296.6,879.3z"/>
+<g>
+	<g>
+		<defs>
+			<rect id="SVGID_3_" x="1457.1" y="617.1" width="918.7" height="828.8"/>
+		</defs>
+		<clipPath id="SVGID_4_">
+			<use xlink:href="#SVGID_3_"  style="overflow:visible;"/>
+		</clipPath>
+		<path class="st4" d="M2085.4,1025.9h248V1228h-248c-26.8,0-52.5-10.6-71.5-29.6c-18.9-18.9-29.6-44.7-29.6-71.5
+			s10.6-52.5,29.6-71.5C2032.9,1036.5,2058.6,1025.9,2085.4,1025.9L2085.4,1025.9z"/>
+	</g>
+</g>
+<rect x="1457.1" y="617.1" class="st1" width="918.7" height="828.8"/>
+<path class="st2" d="M2085.4,1062.6h248v128.6h-248c-35.5,0-64.3-28.8-64.3-64.3C2021.1,1091.4,2049.8,1062.6,2085.4,1062.6
+	L2085.4,1062.6z"/>
+<rect x="1457.1" y="617.1" class="st1" width="918.7" height="828.8"/>
+<rect x="1506.6" y="1086.2" class="st2" width="549.9" height="81.5"/>
+<rect x="1457.1" y="617.1" class="st1" width="918.7" height="828.8"/>
+<path class="st5" d="M1637.6,865.9l342.5-204.3c35.1-20.3,80.1-8.3,100.4,26.8l108.3,177.5H1637.6z"/>
+<g>
+	<defs>
+		<rect id="SVGID_5_" x="1457.1" y="617.1" width="918.7" height="828.8"/>
+	</defs>
+	<clipPath id="SVGID_6_">
+		<use xlink:href="#SVGID_5_"  style="overflow:visible;"/>
+	</clipPath>
+	<path class="st6" d="M1698.2,865.9l342.5-204.3c35.1-20.3,80.1-8.3,100.4,26.8l108.3,177.5H1698.2z"/>
+</g>
+</svg>
