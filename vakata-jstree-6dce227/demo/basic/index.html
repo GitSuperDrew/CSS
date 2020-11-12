@@ -189,8 +189,8 @@
 		// interaction and events
 		$('#evts_button').on("click", function () {
 			var instance = $('#evts').jstree(true);
-			instance.deselect_all();
-			instance.select_node('1');
+			instance.deselect_all(); // 去除所有选中的节点
+			instance.select_node('1'); // 指定id值为1的选中
 		});
 		$('#evts').on("changed.jstree", function (e, data) {
 			if (data.selected.length) {

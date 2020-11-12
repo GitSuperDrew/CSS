@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery DataTable Example</title>
+    <script src="/JQueryPluginOfDataTable/js/jquery-3.4.1.min.js"></script>
+    <!-- 引入bootstrap.css -->
+    <link rel="stylesheet" href="/JQueryPluginOfDataTable\css\bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="/JQueryPluginOfDataTable/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="/JQueryPluginOfDataTable/css/dataTableIndex.css">
+    <!-- 内部本地文件引入 -->
+    <script src="/JQueryPluginOfDataTable/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="/JQueryPluginOfDataTable/css/jquery.dataTables.min.css">
+    <!-- 外部引入CDN -->
+    <!-- <link rel="stylesheet" href="http://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+    <script src="http://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script> -->
+
+</head>
+
+<body>
+    <h3>第一个table数据演示</h3>
+    <div style="width: 500px; margin: auto;">
+        <table id="table_id_example" class="table table-hover">
+            <thead>
+                <tr>
+                    <th>姓名</th>
+                    <th>年龄</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>King</td>
+                    <td>20</td>
+                </tr>
+                <tr>
+                    <td>Hob</td>
+                    <td>22</td>
+                </tr>
+                <tr>
+                    <td>Ary</td>
+                    <td>22</td>
+                </tr>
+                <tr>
+                    <td>Nick</td>
+                    <td>22</td>
+                </tr>
+                <tr>
+                    <td>Jim</td>
+                    <td>22</td>
+                </tr>
+                <tr>
+                    <td>Drew</td>
+                    <td>22</td>
+                </tr>
+                <tr>
+                    <td>Bob</td>
+                    <td>23</td>
+                </tr>
+                <tr>
+                    <td>Bobe</td>
+                    <td>23</td>
+                </tr>
+                <tr>
+                    <td>Yellow</td>
+                    <td>33</td>
+                </tr>
+                <tr>
+                    <td>Red</td>
+                    <td>43</td>
+                </tr>
+                <tr>
+                    <td>Green</td>
+                    <td>13</td>
+                </tr>
+                <tr>
+                    <td>Chunck</td>
+                    <td>35</td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+    <hr>
+    <div>
+        <h3>第二个Table数据演示</h3>
+    </div>
+    <div style="width: 500px; margin: auto;">
+        <table id="table_id_example2" class="basic markdown display dataTable no-footer table-bordered">
+            <thead>
+                <tr role="row">
+                    <th rowspan="1" colspan="1">Name</th>
+                    <th rowspan="1" colspan="1">Position</th>
+                    <th rowspan="1" colspan="1">Office</th>
+                    <th rowspan="1" colspan="1">Extn.</th>
+                    <th rowspan="1" colspan="1">Start date</th>
+                    <th rowspan="1" colspan="1">Salary</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+
+    <hr>
+    <div>
+        <h3>第三个Table数据演示</h3>
+        <button id="table_id_example3_button">获取选中当前条目的数据</button>
+    </div>
+    <div style="width: 500px; margin: auto;">
+        <table id="table_id_example3" class="table table-hover">
+            <thead>
+                <tr role="row">
+                    <td>Name</td>
+                    <td>Salary</td>
+                    <td>Office</td>
+                    <td>Position</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+
+
+        $(document).ready(function () {
+            // ======================================================== table1: 固定的数据
+            // ======================================================== table1: 固定的数据
+            $('#table_id_example').DataTable({
+                language: {
+                    url: '/JQueryPluginOfDataTable/locales/chinese-traditional.json'  // 中国简体字（默认为 英文）
+                }
+            });
+            // ======================================================== table2: JS拿到的数据
+            // ======================================================== table2: JS拿到的数据
+            var table_id_example2_data = [
+                {
+                    "name": "Tiger Nixon",
+                    "position": "System Architect",
+                    "salary": "$3,120",
+                    "start_date": "2011/04/25",
+                    "office": "Edinburgh",
+                    "extn": "5421"
+                },
+                {
+                    "name": "Garrett Winters",
+                    "position": "Director",
+                    "salary": "$5,300",
+                    "start_date": "2011/07/25",
+                    "office": "Edinburgh",
+                    "extn": "8422"
+                }
+            ];
+            $('#table_id_example2').DataTable({
+                language: {
+                    url: '/JQueryPluginOfDataTable/locales/chinese-simple.json'  // 中国简体字（默认为 英文）
+                },
+                data: table_id_example2_data,
+                columns: [
+                    { data: 'name' },
+                    { data: 'position' },
+                    { data: 'office' },
+                    { data: 'extn' },
+                    { data: 'start_date' },
+                    { data: 'salary' }
+                ]
+            });
+            // ======================================================== table3: 实例对象（并获取选中行的数据）
+            // ======================================================== table3: 实例对象（并获取选中行的数据）
+            var table = $("#table_id_example3").DataTable({
+                language: {
+                    url: '/JQueryPluginOfDataTable/locales/chinese-simple.json'
+                },
+                data: [
+                    new Employee("Tiger Nixon", "System Architect", "$3,120", "Edinburgh"),
+                    new Employee("Garrett Winters", "Director", "$5,300", "Edinburgh")
+                ],
+                columns: [
+                    { data: 'name' },
+                    { data: 'salary' },
+                    { data: 'office()' },
+                    { data: 'position' }
+                ]
+            })
+
+            function Employee(name, position, salary, office) {
+                this.name = name;
+                this.position = position;
+                this.salary = salary;
+                this._office = office;
+
+                this.office = function () {
+                    return this._office;
+                }
+            };
+            //给行绑定选中事件
+            $('#table_id_example3 tbody').on('click', 'tr', function () {
+                if ($(this).hasClass('selected')) {
+                    $(this).removeClass('selected');
+                }
+                else {
+                    table.$('tr.selected').removeClass('selected');
+                    $(this).addClass('selected');
+                }
+            });
+            //给按钮绑定点击事件
+            $("#table_id_example3_button").click(function () {
+                var nameVal = table.row('.selected').data().name;
+                var salaryVal = table.row('.selected').data().salary;
+                var officeVal = table.row('.selected').data().office();  // 如果是 *.office 会怎么样呢？
+                var position = table.row('.selected').data().position;
+                alert("第一列内容：" + nameVal + "；第二列内容： " + salaryVal + "\n第三列内容：" + officeVal + "；第四列内容：" + position);
+            });
+
+        });
+
+    </script>
+</body>
+
+</html>
