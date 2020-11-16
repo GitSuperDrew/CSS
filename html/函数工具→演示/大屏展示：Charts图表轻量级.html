@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Charts 基于 Canvas 图表库</title>
+    <!--
+        一、VUE 官网：https://cn.vuejs.org/v2/guide/
+    -->
+    <!-- 生产环境版本，优化了尺寸和速度 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+    <!-- 
+        二、VUE 大屏展示  DataV  
+        DataV官网：http://datav.jiaminghi.com/guide/
+    -->
+    <!--调试版-->
+    <script src="https://unpkg.com/@jiaminghi/data-view/dist/datav.map.vue.js"></script>
+
+
+    <!--
+        三、Charts 基于DataV的一个图标组件库
+        官网：http://charts.jiaminghi.com/
+     -->
+    <!--资源位于个人服务器仅供体验和测试，请勿在生产环境使用-->
+    <script src="http://lib.jiaminghi.com/charts/charts.map.js"></script>
+</head>
+<style>
+    html,
+    body,
+    #app {
+        /* width: 100%;
+        height: 100%; */
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .border-box-content {
+        color: rgb(66, 185, 131);
+        font-size: 40px;
+        font-weight: bold;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+
+<body>
+    <div id="app">
+        <!-- 默认 DataV 一共有13种样式，以div-border...开头的没有样式，由样式的以 dv-border... 开头 -->
+        <div-border-box-1>
+            <dv-loading>演示 Loading... 效果</dv-loading>
+        </div-border-box-1>
+        <dv-border-box-12 style="height: 200px;">
+            <center>
+                <dv-decoration-6 style="width:300px;height:30px;" />
+            </center>
+        </dv-border-box-12>
+        <dv-border-box-12 style="height: 200px;">
+            <center>
+                <dv-decoration-9 style="width:150px;height:150px;" :dur="20">66%</dv-decoration-9>
+            </center>
+        </dv-border-box-12>
+        <dv-border-box-12 style="height: 400px;">
+            <center>
+                雷达扫描圈圈
+                <!-- 雷达扫描全：可以配置颜色, 以及动画图的速率，与官网的有些不一致，官网的写成了scanDur，haloDur -->
+                <dv-decoration-12 :color="['red', 'blue']" :scan-dur="20" :halo-dur="10" style="width:150px;height:150px;" />
+            </center>
+        </dv-border-box-12>
+        <div style="display: flex; flex-wrap:wrap;">
+
+            <dv-border-box-1>
+                <!-- Welcome to DataV -->
+                <dv-charts :option="option_line" style="width: 400px; height: 400px;" />
+            </dv-border-box-1>
+            <dv-border-box-3>
+                雷达图
+                <dv-charts :option="option_radar" style="width: 400px; height: 400px;" />
+            </dv-border-box-3>
+            <dv-border-box-13>
+                玫瑰图
+                <dv-charts :option="option_pie" style="width: 400px; height: 400px;" />
+            </dv-border-box-13>
+            <dv-border-box-4>
+                环形百分比图
+                <dv-charts :option="option_gauge" style="width: 400px; height: 400px;" />
+            </dv-border-box-4>
+            <dv-border-box-4 :reverse="true">
+                <h5>
+                    <!-- :dur 属性是生成图行的时间 -->
+                    <dv-decoration-5 style="width:300px;height:40px;" :dur="10"/>
+                </h5>
+                水位图
+                <dv-water-level-pond :config="config_water" style="width:150px;height:200px" />
+            </dv-border-box-4>
+            <dv-border-box-5 :reverse="true">
+                进度池
+                <dv-percent-pond :config="config_percent_pond" style="width:200px;height:100px;" />
+            </dv-border-box-5>
+            <dv-border-box-1>
+                油箱表
+                <dv-charts :option="option_water" style="width: 400px; height: 400px; background-color:burlywood;"/>
+            </dv-border-box-1>
+            <dv-border-box-8 style="border:2px solid #a1a1a1;border-radius: 25px;">
+                凹聚飞线
+                <dv-flyline-chart :config="config_flyline" style="width: 400px;height:400px;" />
+            </dv-border-box-8>
+            <dv-border-box-9>
+                锥形柱图
+                <dv-conical-column-chart :config="config_conical_column" style="width:400px;height:200px;" />
+            </dv-border-box-9>
+            <dv-border-box-10>
+                轮播表
+                <dv-scroll-board :config="config_scroll_board" style="width:500px;height:220px" />
+            </dv-border-box-10>
+            <dv-border-box-11 style="background-color: black;">
+                排名轮播表
+                <dv-scroll-ranking-board :config="config_scroll_ranking_board" style="width:500px;height:300px" />
+            </dv-border-box-11>
+
+        </div>
+
+    </div>
+</body>
+<script>
+    const config_radar_circle = {
+        scanDur: 120,
+        haloDur: 10
+    }
+
+
+    // 排名轮播表
+    const config_scroll_ranking_board = {
+        carousel: 'single', // 二选一，page/single 默认 single
+        unit: '单位', // 默认为空，
+        valueFormatter({ value }) {
+            // console.warn(arguments)
+            const reverseNumber = (value + '').split('').reverse()
+            let valueStr = ''
+
+            while (reverseNumber.length) {
+                const seg = reverseNumber.splice(0, 3).join('')
+                valueStr += seg
+                if (seg.length === 3) valueStr += ','
+            }
+
+            return valueStr.split('').reverse().join('')
+        },
+        waitTime: '1000', // 轮播间隔，默认2000ms
+        sort: true, // 默认true,按照value的大小排序；否则按照data集合的存放的顺序处理
+        data: [
+            {
+                name: '周口',
+                value: 5500
+            },
+            {
+                name: '南阳',
+                value: 1200
+            },
+            {
+                name: '西峡',
+                value: 78000
+            },
+            {
+                name: '驻马店',
+                value: 66656
+            },
+            {
+                name: '新乡',
+                value: 805656
+            },
+            {
+                name: '信阳',
+                value: 455656
+            },
+            {
+                name: '漯河',
+                value: 292
+            }
+        ]
+    }
+    // 轮播表
+    const config_scroll_board = {
+        header: ['列1', '列2', '列3'],
+        data: [
+            ['<span style="color:#37a2da;">行1列1</span>', '行1列2', '行1列3'],
+            ['行2列1', '<span style="color:#32c5e9;">行2列2</span>', '行2列3'],
+            ['行3列1', '行3列2', '<span style="color:#67e0e3;">行3列3</span>'],
+            ['行4列1', '<span style="color:#9fe6b8;">行4列2</span>', '行4列3'],
+            ['<span style="color:#ffdb5c;">行5列1</span>', '行5列2', '行5列3'],
+            ['行6列1', '<span style="color:#ff9f7f;">行6列2</span>', '行6列3'],
+            ['行7列1', '行7列2', '<span style="color:#fb7293;">行7列3</span>'],
+            ['行8列1', '<span style="color:#e062ae;">行8列2</span>', '行8列3'],
+            ['<span style="color:#e690d1;">行9列1</span>', '行9列2', '行9列3'],
+            ['行10列1', '<span style="color:#e7bcf3;">行10列2</span>', '行10列3']
+        ],
+        index: true, // 头一列序号
+        indexHeader: '序号', // 默认为 ‘#’
+        headerHeight: '80', // 默认35（注意，没有单位）
+        // headerBGC: 'yellow', // 表头背景色（支持三种标识法：英文，进制，RGB色系）
+        // oddRowBGC: 'blue', // 奇数行背景色（支持三种标识法：英文，进制，RGB色系）
+        // evenRowBGC: 'red', // 偶数行背景色（支持三种标识法：英文，进制，RGB色系）
+        waitTime: 1000, // 轮播时间间隔（默认2000ms）
+        columnWidth: [50], // 每列宽度
+        hoverPause: true, // 悬浮暂停轮播
+        carousel: 'single', // 二选一，page:一页一页轮播，single：一行一行轮播
+        rowNum: 6, // 表格展示行数（默认显示5行）注意，如果行数超过了总数据，则不会轮播。
+        align: ['center'] // 列对齐方式
+    }
+    // 锥形柱图
+    const config_conical_column = {
+        data: [
+            {
+                name: '周口',
+                value: 55
+            },
+            {
+                name: '南阳',
+                value: 120
+            },
+            {
+                name: '西峡',
+                value: 71
+            },
+            {
+                name: '驻马店',
+                value: 66
+            },
+            {
+                name: '新乡',
+                value: 80
+            },
+            {
+                name: '信阳',
+                value: 35
+            },
+            {
+                name: '漯河',
+                value: 15
+            }
+        ],
+        img: [
+            'http://datav.jiaminghi.com/img/conicalColumnChart/1st.png',
+            'http://datav.jiaminghi.com/img/conicalColumnChart/2st.png',
+            'http://datav.jiaminghi.com/img/conicalColumnChart/3st.png',
+            'http://datav.jiaminghi.com/img/conicalColumnChart/4st.png',
+            'http://datav.jiaminghi.com/img/conicalColumnChart/5st.png',
+            'http://datav.jiaminghi.com/img/conicalColumnChart/6st.png',
+            'http://datav.jiaminghi.com/img/conicalColumnChart/7st.png'
+        ],
+        showValue: true
+    }
+    // 凹聚飞线
+    const config_flyline = {
+        centerPoint: [0.48, 0.35],
+        points: [
+            {
+                position: [0.52, 0.235],
+                text: '新乡'
+            },
+            {
+                position: [0.43, 0.29],
+                text: '焦作'
+            },
+            {
+                position: [0.59, 0.35],
+                text: '开封'
+            },
+            {
+                position: [0.53, 0.47],
+                text: '许昌'
+            },
+            {
+                position: [0.45, 0.54],
+                text: '平顶山'
+            },
+            {
+                position: [0.36, 0.38],
+                text: '洛阳'
+            },
+            {
+                position: [0.62, 0.55],
+                text: '周口'
+            },
+            {
+                position: [0.56, 0.56],
+                text: '漯河'
+            },
+            {
+                position: [0.37, 0.66],
+                text: '南阳'
+            },
+            {
+                position: [0.55, 0.81],
+                text: '信阳'
+            },
+            {
+                position: [0.55, 0.67],
+                text: '驻马店'
+            },
+            {
+                position: [0.37, 0.29],
+                text: '济源'
+            },
+            {
+                position: [0.20, 0.36],
+                text: '三门峡'
+            },
+            {
+                position: [0.76, 0.41],
+                text: '商丘'
+            },
+            {
+                position: [0.59, 0.18],
+                text: '鹤壁'
+            },
+            {
+                position: [0.68, 0.17],
+                text: '濮阳'
+            },
+            {
+                position: [0.59, 0.10],
+                text: '安阳'
+            }
+        ],
+        k: 0.5,
+        bgImgUrl: 'http://datav.jiaminghi.com/img/flylineChart/map.jpg',
+        centerPointImg: {
+            url: 'http://datav.jiaminghi.com/img/flylineChart/mapCenterPoint.png'
+        },
+        pointsImg: {
+            url: 'http://datav.jiaminghi.com/img/flylineChart/mapPoint.png'
+        }
+    }
+    // 油箱表
+    const option_water = {
+        title: {
+            text: '剩余油量表',
+            style: {
+                fill: '#fff'
+            }
+        },
+        series: [
+            {
+                type: 'gauge',
+                data: [{ name: 'itemA', value: 55 }],
+                center: ['50%', '55%'],
+                axisLabel: {
+                    formatter: '{value}%',
+                    style: {
+                        fill: '#fff'
+                    }
+                },
+                axisTick: {
+                    style: {
+                        stroke: '#fff'
+                    }
+                },
+                animationCurve: 'easeInOutBack'
+            }
+        ]
+    }
+    // 进度池
+    const config_percent_pond = { value: 66, lineDash: [10, 2] }
+    // 水位图
+    const config_water = { data: [66] }
+    // 百分比环
+    const option_gauge = {
+        series: [
+            {
+                type: 'gauge',
+                startAngle: -Math.PI / 2,
+                endAngle: Math.PI * 1.5,
+                arcLineWidth: 25,
+                data: [
+                    { name: 'itemA', value: 65, gradient: ['#03c2fd', '#1ed3e5', '#2fded6'] }
+                ],
+                axisLabel: {
+                    show: false
+                },
+                axisTick: {
+                    show: false
+                },
+                pointer: {
+                    show: false
+                },
+                dataItemStyle: {
+                    lineCap: 'round'
+                },
+                details: {
+                    show: true,
+                    formatter: '{value}%',
+                    style: {
+                        fill: '#1ed3e5',
+                        fontSize: 35
+                    }
+                }
+            }
+        ]
+    }
+    // 折线图
+    const option_line = {
+        title: {
+            text: '周销售额趋势'
+        },
+        xAxis: {
+            name: '第二周',
+            data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+        },
+        yAxis: {
+            name: '销售额',
+            data: 'value'
+        },
+        series: [
+            {
+                data: [1200, 2230, 1900, 2100, 3500, 4200, 3985],
+                type: 'line',
+                lineArea: {
+                    show: true,
+                    gradient: ['rgba(55, 162, 218, 0.6)', 'rgba(55, 162, 218, 0)']
+                }
+            }
+        ]
+    }
+
+    // 雷达图
+    const option_radar = {
+        radar: {
+            polygon: true,
+            indicator: [
+                { name: '西峡', max: 300 },
+                { name: '周口', max: 300 },
+                { name: '南阳', max: 300 },
+                { name: '驻马店', max: 300 },
+                { name: '郑州', max: 300 },
+                { name: '洛阳', max: 300 }
+            ]
+        },
+        series: [
+            {
+                type: 'radar',
+                data: [111, 256, 178, 152, 266, 132],
+                animationCurve: 'easeOutBack'
+            }
+        ]
+    }
+
+    // 邮箱表
+    const option = {
+        title: {
+            text: '剩余油量表',
+            style: {
+                fill: '#fff'
+            }
+        },
+        series: [
+            {
+                type: 'gauge',
+                data: [{ name: 'itemA', value: 55 }],
+                center: ['50%', '55%'],
+                axisLabel: {
+                    formatter: '{value}%',
+                    style: {
+                        fill: '#fff'
+                    }
+                },
+                axisTick: {
+                    style: {
+                        stroke: '#fff'
+                    }
+                },
+                animationCurve: 'easeInOutBack'
+            }
+        ]
+    }
+
+    // 饼图
+    const option_pie = {
+        title: {
+            text: '畅销饮料占比饼状图'
+        },
+        series: [
+            {
+                type: 'pie',
+                data: [
+                    { name: '可口可乐', value: 93 },
+                    { name: '百事可乐', value: 32 },
+                    { name: '哇哈哈', value: 65 },
+                    { name: '康师傅', value: 44 },
+                    { name: '统一', value: 52 },
+                ],
+                insideLabel: {
+                    show: true
+                },
+                roseType: true
+            }
+        ]
+    }
+
+    var app = new Vue({
+        el: '#app'
+    })
+
+</script>
+
+</html>

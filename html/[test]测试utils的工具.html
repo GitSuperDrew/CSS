@@ -6,28 +6,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>测试 utils 包下的工具类</title>
     <script src="../utils/js/jutil.js"></script>
-    <!-- <script src="../utils/js/jquery-3.4.1.min.js"></script> -->
+    <script src="../utils/js/jquery-3.4.1.min.js"></script>
     <script src="../utils/js/demo.js"></script>
     <script src="../utils/js/NormalUtil.js"></script>
 </head>
 
 <body>
 
-    <script>
-        // $(function () { // 工具类下的 jQuery插件引入
-        //     console.log("hello world! hello cript.")
-        //     console.log('    hello jutil.trim()   '.trim())
-        //     console.log(checkNumber(12133))
-        //     showUuid();
-        // })
+    <select id="cityId" name="city" onchange="func_selected()">
+        <option value="">资产状态筛选</option>
+        <option value="0">北京</option>
+        <option value="1">上海</option>
+        <option value="2">广州</option>
+        <option value="3">深圳</option>
+        <option value="4">杭州</option>
+    </select>
 
-        function showUuid() {
-            console.log("随机数的UUID：", Jutil.createUuid())
-        }
-
-        showUuid();
-
-    </script>
 </body>
+<script>
+
+    // 选择框
+    function func_selected() {
+        let selectedVal = $("#cityId").find("option:selected").val(); // 选中的value值
+        let selectedText = $("#cityId").find("option:selected").text(); // 选中的text文本内容
+        console.log(selectedVal, selectedText);
+    }
+
+</script>
 
 </html>
