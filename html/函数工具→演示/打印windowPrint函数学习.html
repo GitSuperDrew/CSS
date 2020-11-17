@@ -32,7 +32,7 @@
 
 	// 指定打印页面定义的某一个DOM元素
 	function doPrintWeb() {
-		let printRangeDom = document.getElementById('printBox');// printBox2 需要打印的DOM节点部分
+		let printRangeDom = document.getElementById('printBox'); // printBox2 需要打印的DOM节点部分
 		let newContent = printRangeDom.innerHTML;
 		let oldContent = document.body.innerHTML;
 		document.body.innerHTML = newContent;
@@ -59,7 +59,7 @@
 			RegWsh.RegWrite(hkey_root + hkey_path + hkey_key, "");
 			hkey_key = "footer";
 			RegWsh.RegWrite(hkey_root + hkey_path + hkey_key, "");
-		} catch (e) { }
+		} catch (e) {}
 	}
 
 	function getExplorer() {
