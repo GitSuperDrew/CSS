@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>二维码图片生成示例</title>
+    <script src="https://cdn.staticfile.org/jquery/1.10.0/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+
+<body>
+    <div id="yqcode"></div>
+    <script>
+        // 二维码生成
+        function erweima() {
+            var link = "http://www.baidu.com";     // 其中link为需生成二维码的链接
+            var qrcode = new QRCode("yqcode", {
+                text: link,
+                width: 200,
+                height: 200,
+                colorDark: "pink",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
+            });
+        }
+        erweima();
+
+    </script>
+</body>
+
+</html>
